@@ -104,57 +104,13 @@ def render_portfolio_page(active_page, contact_success=False):
         responsibilities=responsibilities,
         contact_success=contact_success,
     )
-import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
+# import smtplib
+# from email.mime.text import MIMEText
+# from email.mime.multipart import MIMEMultipart
 
 
-
-@app.route("/", methods=["GET", "POST"])
+@app.route("/")
 def home():
-
-    contact_success = False
-
-    if request.method == "POST":
-
-        name = request.form.get("name", "").strip()
-        sender_email = request.form.get("email", "").strip()
-        message = request.form.get("message", "").strip()
-
-        if name and sender_email and message:
-
-            try:
-                msg = Message(
-                       subject=f"Portfolio Message from {name}",
-                       sender=("Afreen Portfolio", os.getenv("EMAIL_ADDRESS")),
-                       recipients=[os.getenv("EMAIL_ADDRESS")],
-                       reply_to=sender_email
-                 )               
-                msg.body = f"""
-You received a new portfolio contact message.
-
-━━━━━━━━━━━━━━━━━━
-
-Name: {name}
-
-Email: {sender_email}
-
-Message:
-{message}
-
-━━━━━━━━━━━━━━━━━━
-
-Sent from your Portfolio Website
-"""
-
-                mail.send(msg)
-
-                contact_success = True
-                # return ("", 204)
-
-            except Exception as e:
-                print("EMAIL ERROR:", e)
-                contact_success = False
 
     return render_template(
         "index.html",
@@ -163,8 +119,63 @@ Sent from your Portfolio Website
         education=education_data,
         projects=projects_data,
         responsibilities=responsibilities,
-        contact_success=contact_success,
+        contact_success=False,
     )
+# @app.route("/", methods=["GET", "POST"])
+# def home():
+
+#     contact_success = False
+
+#     if request.method == "POST":
+
+#         name = request.form.get("name", "").strip()
+#         sender_email = request.form.get("email", "").strip()
+#         message = request.form.get("message", "").strip()
+
+#         if name and sender_email and message:
+
+#             try:
+#                 msg = Message(
+#                        subject=f"Portfolio Message from {name}",
+#                        sender=("Afreen Portfolio", os.getenv("EMAIL_ADDRESS")),
+#                        recipients=[os.getenv("EMAIL_ADDRESS")],
+#                        reply_to=sender_email
+#                  )               
+#                 msg.body = f"""
+# You received a new portfolio contact message.
+
+# ━━━━━━━━━━━━━━━━━━
+
+# Name: {name}
+
+# Email: {sender_email}
+
+# Message:
+# {message}
+
+# ━━━━━━━━━━━━━━━━━━
+
+# Sent from your Portfolio Website
+# """
+
+#                 mail.send(msg)
+
+#                 contact_success = True
+#                 # return ("", 204)
+
+#             except Exception as e:
+#                 print("EMAIL ERROR:", e)
+#                 contact_success = False
+
+#     return render_template(
+#         "index.html",
+#         profile=profile,
+#         skills=skills_data,
+#         education=education_data,
+#         projects=projects_data,
+#         responsibilities=responsibilities,
+#         contact_success=contact_success,
+#     )
 
 
 if __name__ == "__main__":
