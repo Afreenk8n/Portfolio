@@ -80,7 +80,6 @@ window.addEventListener("load", () => {
     const inner = document.createElement("div");
     inner.className = "petal-inner";
 
-    // Alternate spawn between left source and right source
     const side = i % 2;                         // 0 = left, 1 = right
     const startVW = side === 0
       ? rand(-5, 30)                            // left band: -5vw → 30vw
