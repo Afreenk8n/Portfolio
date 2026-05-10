@@ -65,7 +65,7 @@ window.addEventListener("load", () => {
 });
 
 (function initPetalRain() {
-  const PETAL_COUNT = 80;          // dreamy density — bump to 60 for snowfall feel
+  const PETAL_COUNT = 60;          // dreamy density — bump to 60 for snowfall feel
   const VARIANTS = ["lilac", "pink", "white", "lilac", "pink"]; // weighted toward lilac/pink
 
   const container = document.createElement("div");
