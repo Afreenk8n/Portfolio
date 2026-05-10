@@ -1,6 +1,7 @@
 
 from flask import Flask, render_template, request, redirect, url_for
 from dotenv import load_dotenv
+from flask_mail import Mail, Message
 import os
 
 load_dotenv()
@@ -8,6 +9,13 @@ load_dotenv()
 EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
 EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
 app = Flask(__name__)
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = os.getenv("EMAIL_ADDRESS")
+app.config['MAIL_PASSWORD'] = os.getenv("EMAIL_PASSWORD")
+
+mail = Mail(app)
 
 profile = {
     "name": "Afreen Khan",
@@ -96,38 +104,6 @@ def render_portfolio_page(active_page, contact_success=False):
         responsibilities=responsibilities,
         contact_success=contact_success,
     )
-
-
-# @app.route("/")
-# @app.route("/home")
-# def home():
-#     return render_portfolio_page("home")
-# @app.route("/")
-# def home():
-#     return render_portfolio_page("home")
-
-# @app.route("/about")
-# def about():
-#     return render_portfolio_page("about")
-
-
-# @app.route("/skills")
-# def skills():
-#     return render_portfolio_page("skills")
-
-
-# @app.route("/projects")
-# def projects():
-#     return render_portfolio_page("projects")
-
-
-# @app.route("/education")
-# def education():
-#     return render_portfolio_page("education")
-
-
-# @app.route("/contact", methods=["GET", "POST"])
-# d```python id="vjw8s7"
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -148,13 +124,12 @@ def home():
         if name and sender_email and message:
 
             try:
-
-                msg = MIMEMultipart()
-
-                msg["From"] = EMAIL_ADDRESS
-                msg["To"] = EMAIL_ADDRESS
-                msg["Subject"] = f"Portfolio Message from {name}"
-                body = f"""
+                msg = Message(
+                       subject=f"Portfolio Message from {name}",
+                       sender=os.getenv("EMAIL_ADDRESS"),
+                       recipients=[os.getenv("EMAIL_ADDRESS")]
+                 )               
+                msg.body = f"""
 You received a new portfolio contact message.
 
 ━━━━━━━━━━━━━━━━━━
@@ -171,28 +146,14 @@ Message:
 Sent from your Portfolio Website
 """
 
-                server = smtplib.SMTP("smtp.gmail.com", 587, timeout=15)
-
-                server.ehlo()
-
-                server.starttls()
-
-                server.ehlo()
-
-                server.login(
-                    EMAIL_ADDRESS, EMAIL_PASSWORD)
-
-                server.sendmail(
-                    EMAIL_ADDRESS,EMAIL_ADDRESS,msg.as_string())
-
-                server.quit()
+                mail.send(msg)
 
                 contact_success = True
                 # return ("", 204)
 
             except Exception as e:
-                contact_success = False
                 print("EMAIL ERROR:", e)
+                contact_success = False
 
     return render_template(
         "index.html",
