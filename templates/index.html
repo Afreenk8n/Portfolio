@@ -18,7 +18,11 @@
     <link rel="stylesheet"
           href="{{ url_for('static', filename='style.css') }}">
 </head>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
+<script>
+emailjs.init("JGNW0W9K2e9ZYTyvL");
+</script>
 <body>
     <div class="aurora" aria-hidden="true">
   <div class="aurora-blob b1"></div>
@@ -392,68 +396,5 @@
 <footer class="footer">
     <p>© 2025 Afreen Khan</p>
 </footer>
-
-<!-- <button id="toTopBtn"
-        class="to-top"
-        aria-label="Back to top">
-    ↑
-</button> -->
-
 <script src="{{ url_for('static', filename='script.js') }}"></script>
 <script>
-const contactForm = document.getElementById("contactForm");
-
-contactForm.addEventListener("submit", async (e) => {
-
-    e.preventDefault();
-
-    const formData = new FormData(contactForm);
-
-    const submitBtn = contactForm.querySelector("button");
-
-    submitBtn.innerHTML = "Sending...";
-    submitBtn.disabled = true;
-
-    try {
-
-        const response = await fetch("/", {
-            method: "POST",
-            body: formData
-        });
-
-        if (response.ok) {
-
-            submitBtn.innerHTML = "Message Sent";
-
-            const successMsg = document.createElement("p");
-
-            successMsg.className = "success";
-            successMsg.innerText =
-                "Thanks! Your message was delivered successfully.";
-
-            contactForm.appendChild(successMsg);
-
-            contactForm.reset();
-
-            setTimeout(() => {
-                successMsg.remove();
-                submitBtn.innerHTML = "Send Message";
-                submitBtn.disabled = false;
-            }, 3000);
-
-        } else {
-            submitBtn.innerHTML = "Failed";
-        }
-
-    } catch (error) {
-
-        submitBtn.innerHTML = "Error";
-
-        console.log(error);
-    }
-});
-</script>
-
-</body>
-</html>
-

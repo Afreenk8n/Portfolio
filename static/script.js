@@ -199,3 +199,22 @@ tiltCards.forEach((card) => {
     card.style.transform = "";
   });
 });
+const form = document.querySelector("form");
+
+form.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    emailjs.sendForm(
+        "service_2k4p3od",
+        "template_w425kon",
+        this
+    )
+    .then(() => {
+        alert("Message sent successfully");
+        form.reset();
+    })
+    .catch((error) => {
+        alert("Failed to send message");
+        console.log(error);
+    });
+});
