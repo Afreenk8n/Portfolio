@@ -42,27 +42,12 @@ window.addEventListener("scroll", () => {
 
   if (isAtBottom) {
     toTopBtn.classList.add("show");
-  } else {
-    toTopBtn.classList.remove("show");
   }
+  // } else {
+  //   toTopBtn.classList.remove("show");
+  // }
 
 });
-
-// toTopBtn.addEventListener("click", () => {
-//   window.scrollTo({ top: 0, behavior: "auto" });
-// });
-// const toTopBtn = document.getElementById("toTopBtn");
-// window.addEventListener("scroll", () => {
-//   if (window.scrollY > 350) {
-//     toTopBtn.classList.add("show");
-//   } else {
-//     toTopBtn.classList.remove("show");
-//   }
-// });
-
-// toTopBtn.addEventListener("click", () => {
-//   window.scrollTo({ top: 0, behavior: "auto" });
-// });
 
 window.addEventListener("load", () => {
   const hash = window.location.hash;
@@ -81,46 +66,6 @@ window.addEventListener("load", () => {
   });
 });
 
-// const pageOrder = ["/home", "/about", "/education", "/skills", "/projects", "/contact"];
-// let pageSwitchLock = false;
-// let wheelDeltaBuffer = 0;
-// let wheelBufferResetTimer = null;
-
-// window.addEventListener(
-//   "wheel",
-//   (event) => {
-//     if (pageSwitchLock) return;
-
-//     const activeElement = document.activeElement;
-//     const isTypingInField =
-//       activeElement &&
-//       (activeElement.tagName === "INPUT" ||
-//         activeElement.tagName === "TEXTAREA" ||
-//         activeElement.isContentEditable);
-//     if (isTypingInField) return;
-
-//     const currentPath = window.location.pathname === "/" ? "/home" : window.location.pathname;
-//     const currentIndex = pageOrder.indexOf(currentPath);
-//     if (currentIndex === -1) return;
-
-//     wheelDeltaBuffer += event.deltaY;
-//     if (wheelBufferResetTimer) clearTimeout(wheelBufferResetTimer);
-//     wheelBufferResetTimer = setTimeout(() => {
-//       wheelDeltaBuffer = 0;
-//     }, 120);
-
-//     const triggerThreshold = 75;
-
-//     if (wheelDeltaBuffer > triggerThreshold && currentIndex < pageOrder.length - 1) {
-//       pageSwitchLock = true;
-//       window.location.href = `${pageOrder[currentIndex + 1]}#${pageOrder[currentIndex + 1].replace("/", "")}`;
-//     } else if (wheelDeltaBuffer < -triggerThreshold && currentIndex > 0) {
-//       pageSwitchLock = true;
-//       window.location.href = `${pageOrder[currentIndex - 1]}#${pageOrder[currentIndex - 1].replace("/", "")}`;
-//     }
-//   },
-//   { passive: true }
-// );
 (function initPetalRain() {
   const PETAL_COUNT = 80;          // dreamy density — bump to 60 for snowfall feel
   const VARIANTS = ["lilac", "pink", "white", "lilac", "pink"]; // weighted toward lilac/pink
