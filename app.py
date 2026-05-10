@@ -171,25 +171,27 @@ Message:
 Sent from your Portfolio Website
 """
 
-                msg.attach(MIMEText(body, "plain"))
+                server = smtplib.SMTP("smtp.gmail.com", 587, timeout=15)
 
-                server = smtplib.SMTP("smtp.gmail.com", 587)
+                server.ehlo()
 
                 server.starttls()
 
-                server.login(
-                    EMAIL_ADDRESS,
-                    EMAIL_PASSWORD
-                )
+                server.ehlo()
 
-                server.send_message(msg)
+                server.login(
+                    EMAIL_ADDRESS, EMAIL_PASSWORD)
+
+                server.sendmail(
+                    EMAIL_ADDRESS,EMAIL_ADDRESS,msg.as_string())
 
                 server.quit()
 
-                # contact_success = True
-                return ("", 204)
+                contact_success = True
+                # return ("", 204)
 
             except Exception as e:
+                contact_success = False
                 print("EMAIL ERROR:", e)
 
     return render_template(
