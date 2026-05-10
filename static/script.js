@@ -33,14 +33,19 @@ reveals.forEach((section) => observer.observe(section));
 const toTopBtn = document.getElementById("toTopBtn");
 
 window.addEventListener("scroll", () => {
-  // Check if the user is at the very bottom of the document
-  const isAtBottom = (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50;
+
+  if (!toTopBtn) return;
+
+  const isAtBottom =
+    (window.innerHeight + window.scrollY) >=
+    document.body.offsetHeight - 50;
 
   if (isAtBottom) {
     toTopBtn.classList.add("show");
   } else {
     toTopBtn.classList.remove("show");
   }
+
 });
 
 // toTopBtn.addEventListener("click", () => {

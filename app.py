@@ -104,10 +104,6 @@ def render_portfolio_page(active_page, contact_success=False):
         responsibilities=responsibilities,
         contact_success=contact_success,
     )
-# import smtplib
-# from email.mime.text import MIMEText
-# from email.mime.multipart import MIMEMultipart
-
 
 @app.route("/")
 def home():
