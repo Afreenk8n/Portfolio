@@ -16,7 +16,7 @@ app.config['MAIL_USERNAME'] = os.getenv("EMAIL_ADDRESS")
 app.config['MAIL_PASSWORD'] = os.getenv("EMAIL_PASSWORD")
 
 mail = Mail(app)
-email = request.form.get("email")
+# email = request.form.get("email")
 profile = {
     "name": "Afreen Khan",
     "headline": "B.Tech IT Student",
@@ -128,7 +128,7 @@ def home():
                        subject=f"Portfolio Message from {name}",
                        sender=("Afreen Portfolio", os.getenv("EMAIL_ADDRESS")),
                        recipients=[os.getenv("EMAIL_ADDRESS")],
-                       reply_to=email
+                       reply_to=sender_email
                  )               
                 msg.body = f"""
 You received a new portfolio contact message.
