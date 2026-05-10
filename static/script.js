@@ -30,23 +30,21 @@ const observer = new IntersectionObserver(
 );
 
 reveals.forEach((section) => observer.observe(section));
-const toTopBtn = document.getElementById("toTopBtn");
+document.addEventListener("DOMContentLoaded", () => {
+  const toTopBtn = document.getElementById("toTopBtn");
 
-window.addEventListener("scroll", () => {
+  // Only add the scroll listener if the button actually exists
+  if (toTopBtn) {
+    window.addEventListener("scroll", () => {
+      const isAtBottom = (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50;
 
-  if (!toTopBtn) return;
-
-  const isAtBottom =
-    (window.innerHeight + window.scrollY) >=
-    document.body.offsetHeight - 50;
-
-  if (isAtBottom) {
-    toTopBtn.classList.add("show");
+      if (isAtBottom) {
+        toTopBtn.classList.add("show");
+      } else {
+        toTopBtn.classList.remove("show");
+      }
+    });
   }
-  // } else {
-  //   toTopBtn.classList.remove("show");
-  // }
-
 });
 
 window.addEventListener("load", () => {
